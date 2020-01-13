@@ -1,14 +1,19 @@
-import {AfterViewChecked, Component, ElementRef} from '@angular/core';
+import {AfterContentChecked, Component, ElementRef} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {ICellRendererAngularComp} from 'ag-grid-angular';
 import {ICellRendererParams} from 'ag-grid-community';
 
 @Component({
   selector: 'app-custom-cell',
-  templateUrl: 'custom-cell.component.html',
-  styleUrls: ['./custom-cell.component.scss'],
+  template: `
+    <span style="color: red;">
+      <ng-container *ngIf="hovered; else notHovered">{{form.value * form.value}}
+        <button (click)="doStuff(form.value)">show root</button></ng-container>
+      <ng-template #notHovered>{{form.value + form.value}}</ng-template>
+    </span>
+  `,
 })
-export class CustomCellComponent implements ICellRendererAngularComp, AfterViewChecked {
+export class CustomCellComponent implements ICellRendererAngularComp, AfterContentChecked {
   form: FormControl;
   params: ICellRendererParams;
   hovered = false;
@@ -16,7 +21,11 @@ export class CustomCellComponent implements ICellRendererAngularComp, AfterViewC
   constructor(private elementRef: ElementRef) {
   }
 
-  ngAfterViewChecked() {
+  doStuff(val) {
+    alert(val);
+  }
+
+  ngAfterContentChecked() {
     this.hovered = (this.elementRef.nativeElement as HTMLElement)
       .parentElement
       .parentElement

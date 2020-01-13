@@ -16,7 +16,6 @@ import {CustomCellComponent} from './renderer/checkbox-cell/custom-cell.componen
         (gridReady)="onGridReady($event)"
       ></ag-grid-angular>
     </div>`,
-  styleUrls: ['./app.component.scss'],
   entryComponents: [CustomCellComponent]
 })
 export class AppComponent {
