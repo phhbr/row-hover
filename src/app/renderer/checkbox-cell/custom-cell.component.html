@@ -1,0 +1,4 @@
+<span style="color: red;">
+  <ng-container *ngIf="hovered; else notHovered">{{form.value + form.value}}</ng-container>
+  <ng-template #notHovered>{{form.value * form.value}}</ng-template>
+</span>
